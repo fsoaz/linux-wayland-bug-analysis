@@ -38,7 +38,7 @@ Feb 06 21:24:51 fedora kwin_wayland[1743]: Input Method crashed "maliit-keyboard
 - **Distribution:** Fedora Linux 43
 - **Desktop Environment:** KDE Plasma
 - **Display Server:** Wayland
-- **User:** francisco (UID 1000)
+- **User session:** regular desktop user
 
 ### Package Versions
 - **maliit-keyboard:** 2.3.1-11.fc43.x86_64
@@ -81,7 +81,11 @@ Many earlier dumps show "missing" status, indicating they may have been cleaned 
 
 ## Analysis
 
-The crash appears to be a bug in the UTF-8 text conversion handling within the Maliit Wayland input method context. When Wayland sends surrounding text information via `zwp_input_method_context_v1_surrounding_text`, the Qt5 UTF-8 conversion function crashes, likely due to:
+The crash appears to be related to UTF-8 text conversion handling 
+within the Maliit Wayland input method context.
+
+Based on the stack trace and crash context, the following
+hypotheses are considered:
 
 1. Invalid UTF-8 sequence in the input
 2. Buffer overflow or memory corruption
@@ -135,8 +139,19 @@ journalctl -f | grep maliit
 journalctl -p err -f
 ```
 
+## Expected Behavior
+
+maliit-keyboard should handle surrounding text updates
+without crashing, allowing continuous text input
+during Wayland sessions.
+
+## Current Status
+
+As of February 8, 2026, the crash is still reproducible
+on the latest available Fedora 43 updates.
+
+
 ---
 
 **Report generated:** February 8, 2026  
 **Reported by:** francisco  
-**Co-Authored-By:** Warp <agent@warp.dev>
