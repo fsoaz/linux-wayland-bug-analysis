@@ -34,6 +34,13 @@ Each report in this repository includes:
 - QA engineers
 - Linux desktop developers
 
+## Status
+
+Upstream Bug Report
+
+This issue has been reported to Fedora Bugzilla:
+
+https://bugzilla.redhat.com/show_bug.cgi?id=2437656
 
 ## License
 
